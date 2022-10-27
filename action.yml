@@ -23,6 +23,10 @@ runs:
 
     - run: |
         curl -O https://labrador.labradorlabs.ai/scanner/LabScan.jar
+        
+        ls -l
+        
         java -jar LabScan.jar -project ${{ inputs.project-path }} -token ${{ inputs.project-token }} -projectkey ${{ inputs.project-key }}
+        
         rm -f LabScan.jar
       shell: bash
