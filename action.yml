@@ -1,0 +1,28 @@
+name: 'Labrador Scanner'
+description: 'Labrador Scanner'
+
+inputs:
+  project-path:  # the project path
+    description: 'Project Path'
+    required: true
+    default: './'
+  project-token:  # the token
+    description: 'Token'
+    required: true
+  project-key:  # the project key
+    description: 'Project Key'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - run: |
+        curl -O https://labrador.labradorlabs.ai/scanner/LabScan.jar
+        java -jar LabScan.jar -project ${{ inputs.project-path }} -token ${{ inputs.project-token }} -projectkey ${{ inputs.project-key }}
+        rm -f LabScan.jar
+      shell: bash
